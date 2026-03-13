@@ -1,4 +1,8 @@
-# 2x2coin
+# 996 Coin
+
+996 Coin is a cryptocurrency developed by the HCC Community (see hashcashfaucet.com)
+
+<!-- # 2x2coin
 
 
 https://2x2coin.space     Official Website
@@ -89,4 +93,4 @@ Type:
 ```
 YOURCOINd help
 ```
-for a full list of commands available.
+for a full list of commands available. -->
