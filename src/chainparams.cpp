@@ -117,8 +117,8 @@ public:
         consensus.hashGenesisBlock = genesis.GetHash();
         std::cout << "Genesis Block Hash: " << consensus.hashGenesisBlock.ToString() << std::endl;
         std::cout << "Genesis Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
-        assert(consensus.hashGenesisBlock == uint256S("0x00000bcd2d9ccbb28606a8b2d962b97394f612bf6e021ce1d64d71cecb008029"));
-        assert(genesis.hashMerkleRoot == uint256S("0xb44e2d41890cc021a91405d7944b77ac4a27fadfc0caa9734c68fc64da09a207"));
+        assert(consensus.hashGenesisBlock == uint256S("0xe5275fd0690dce70276d8556e2a5c37785396ae1550d9f4c81096b5734fc0711"));
+        assert(genesis.hashMerkleRoot == uint256S("0x83016d6abec7604f112d889528e47045915696ca3cf9a72b3509ae826e31f49f"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
@@ -149,12 +149,7 @@ public:
 
         checkpointData = {
             {
-                { 0, uint256S("0x00000bcd2d9ccbb28606a8b2d962b97394f612bf6e021ce1d64d71cecb008029")},
-                { 50000, uint256S("0x9f1a7b15917cbe23bb5dff82e60da8147820c58dea65793be72506c8e6d22b23")},
-                { 87231, uint256S("0xb0836f48bbcf0e675e9957bdc9a73acee32acb50eb6380719d5348df5509ba02")},
-                { 112802,uint256S("0x622a541f3292d61d8e6ee1d0288a98f8ec6fabbc25e14f7fa33540f1fa65b97a")},
-                { 128654,uint256S("0xb8a8fd8f3a8cbab7f1d2e5d431eab19610ec83d4f6e421f87fa238b1d91e2f92")},
-                { 236425,uint256S("0xf24b2bc2f0476da8a42042610524991c66871ae065dac162b47de60ac379f934")}
+                { 0, uint256S("0xe5275fd0690dce70276d8556e2a5c37785396ae1550d9f4c81096b5734fc0711") }
             }
         };
 
@@ -231,8 +226,8 @@ public:
         consensus.hashGenesisBlock = genesis.GetHash();
         std::cout << "Genesis Block Hash: " << consensus.hashGenesisBlock.ToString() << std::endl;
         std::cout << "Genesis Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
-        assert(consensus.hashGenesisBlock == uint256S("0x00000fe2acf48e35c5b594d9ff7db2a7bbafa1b73205b2789a6833be70595818"));
-        assert(genesis.hashMerkleRoot == uint256S("0xb44e2d41890cc021a91405d7944b77ac4a27fadfc0caa9734c68fc64da09a207"));
+        assert(consensus.hashGenesisBlock == uint256S("0x5bc97d9cb2cb3cc58d6587473fa48c3671093ba5dd6669cb892d875024a68774"));
+        assert(genesis.hashMerkleRoot == uint256S("0x83016d6abec7604f112d889528e47045915696ca3cf9a72b3509ae826e31f49f"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -440,8 +435,8 @@ public:
         consensus.hashGenesisBlock = genesis.GetHash();
         std::cout << "Genesis Block Hash: " << consensus.hashGenesisBlock.ToString() << std::endl;
         std::cout << "Genesis Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
-        assert(consensus.hashGenesisBlock == uint256S("0x2b8d445931aa4ea9b52db1488d3641fa2d4f7a3c1f8151bfa99d017493129e97"));
-        assert(genesis.hashMerkleRoot == uint256S("0xb44e2d41890cc021a91405d7944b77ac4a27fadfc0caa9734c68fc64da09a207"));
+        assert(consensus.hashGenesisBlock == uint256S("0x30d91624916f565a510b7d959da13b6eda6125ee5ac971e7b12f8f2cb88190f1"));
+        assert(genesis.hashMerkleRoot == uint256S("0x83016d6abec7604f112d889528e47045915696ca3cf9a72b3509ae826e31f49f"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
@@ -453,7 +448,7 @@ public:
 
         checkpointData = {
             {
-                {0, uint256S("0x2b8d445931aa4ea9b52db1488d3641fa2d4f7a3c1f8151bfa99d017493129e97")},
+                {0, uint256S("0x30d91624916f565a510b7d959da13b6eda6125ee5ac971e7b12f8f2cb88190f1")},
             }
         };
 
