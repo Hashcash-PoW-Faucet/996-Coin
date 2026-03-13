@@ -43,7 +43,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
 
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "It does not matter how slowly you go as long as you do not stop";
+    const char* pszTimestamp = "Why are we so rich? Because 996!";
     const CScript genesisOutputScript = CScript() << ParseHex("04afab89b3670736e72d7d8a2426081782329142bdfe1c42405c470f54d6e635ee5c6ba66fe3128f7eaf1bcce92b4440a14a6199a40d2f8bb79c452d889b89c3e5") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -96,7 +96,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1230767999; // December 31, 2008
 
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000074e123470d6bcaa7c"); //block 236,425
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000"); //block 236,425
         consensus.defaultAssumeValid = uint256S("0xf24b2bc2f0476da8a42042610524991c66871ae065dac162b47de60ac379f934"); //block 236,425
 
         /**
@@ -113,8 +113,10 @@ public:
         m_assumed_blockchain_size = 2;
         m_assumed_chain_state_size = 1;
 
-        genesis = CreateGenesisBlock(1588417200, 3694275, 0x1e0fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1773436821, 3694275, 0x1e0fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+        std::cout << "Genesis Block Hash: " << consensus.hashGenesisBlock.ToString() << std::endl;
+        std::cout << "Genesis Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
         assert(consensus.hashGenesisBlock == uint256S("0x00000bcd2d9ccbb28606a8b2d962b97394f612bf6e021ce1d64d71cecb008029"));
         assert(genesis.hashMerkleRoot == uint256S("0xb44e2d41890cc021a91405d7944b77ac4a27fadfc0caa9734c68fc64da09a207"));
 
@@ -123,12 +125,12 @@ public:
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.emplace_back("seed1.bitcoinpos.net");
-        vSeeds.emplace_back("seed2.bitcoinpos.net");
-        vSeeds.emplace_back("seed3.bitcoinpos.net");
-        vSeeds.emplace_back("seed4.bitcoinpos.net");
-        vSeeds.emplace_back("seed5.bitcoinpos.net");
-        vSeeds.emplace_back("seed6.bitcoinpos.net");
+        // vSeeds.emplace_back("seed1.bitcoinpos.net");
+        // vSeeds.emplace_back("seed2.bitcoinpos.net");
+        // vSeeds.emplace_back("seed3.bitcoinpos.net");
+        // vSeeds.emplace_back("seed4.bitcoinpos.net");
+        // vSeeds.emplace_back("seed5.bitcoinpos.net");
+        // vSeeds.emplace_back("seed6.bitcoinpos.net");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,8);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,18);
@@ -227,6 +229,8 @@ public:
 
         genesis = CreateGenesisBlock(1588417200, 3152477, 0x1e0fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+        std::cout << "Genesis Block Hash: " << consensus.hashGenesisBlock.ToString() << std::endl;
+        std::cout << "Genesis Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
         assert(consensus.hashGenesisBlock == uint256S("0x00000fe2acf48e35c5b594d9ff7db2a7bbafa1b73205b2789a6833be70595818"));
         assert(genesis.hashMerkleRoot == uint256S("0xb44e2d41890cc021a91405d7944b77ac4a27fadfc0caa9734c68fc64da09a207"));
 
@@ -434,6 +438,8 @@ public:
 
         genesis = CreateGenesisBlock(1588417200, 0, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+        std::cout << "Genesis Block Hash: " << consensus.hashGenesisBlock.ToString() << std::endl;
+        std::cout << "Genesis Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
         assert(consensus.hashGenesisBlock == uint256S("0x2b8d445931aa4ea9b52db1488d3641fa2d4f7a3c1f8151bfa99d017493129e97"));
         assert(genesis.hashMerkleRoot == uint256S("0xb44e2d41890cc021a91405d7944b77ac4a27fadfc0caa9734c68fc64da09a207"));
 

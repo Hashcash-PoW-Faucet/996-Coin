@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>798</width>
-    <height>318</height>
+    <width>886</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/icons/966C);</string>
   </property>
   <layout class="QVBoxLayout" name="topLayout">
    <item>
@@ -47,69 +50,6 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="font">
-               <font>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Balances</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="labelWalletStatus">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>30</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../bitcoin.qrc">
-                <normaloff>:/icons/warning</normaloff>
-                <disabledoff>:/icons/warning</disabledoff>:/icons/warning</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
            <layout class="QGridLayout" name="gridLayout">
             <property name="spacing">
              <number>12</number>
@@ -119,7 +59,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -145,7 +84,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -171,7 +109,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -230,7 +167,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -274,9 +210,7 @@
             <item row="5" column="1">
              <widget class="QLabel" name="labelStake">
               <property name="font">
-               <font>
-                <weight>30</weight>
-               </font>
+               <font/>
               </property>
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
@@ -311,16 +245,14 @@
             <item row="5" column="0">
              <widget class="QLabel" name="labelStakeText">
               <property name="text">
-                <string>Immature Stakes:</string>
+               <string>Immature Stakes:</string>
               </property>
              </widget>
             </item>
             <item row="6" column="1">
              <widget class="QLabel" name="labelImmatureDelegated">
               <property name="font">
-               <font>
-                <weight>30</weight>
-               </font>
+               <font/>
               </property>
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
@@ -355,7 +287,7 @@
             <item row="6" column="0">
              <widget class="QLabel" name="labelImmatureDelegatedText">
               <property name="text">
-                <string>Immature Delegations:</string>
+               <string>Immature Delegations:</string>
               </property>
              </widget>
             </item>
@@ -363,7 +295,6 @@
              <widget class="QLabel" name="labelDelegated">
               <property name="font">
                <font>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -400,7 +331,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="labelDelegatedText">
               <property name="text">
-                <string>Delegated:</string>
+               <string>Delegated:</string>
               </property>
              </widget>
             </item>
@@ -409,7 +340,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -435,7 +365,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -478,7 +407,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -504,7 +432,6 @@
               <property name="font">
                <font>
                 <family>Monospace</family>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -547,19 +474,6 @@
          </layout>
         </widget>
        </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </item>
      <item>
@@ -579,7 +493,6 @@
              <widget class="QLabel" name="label_4">
               <property name="font">
                <font>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -655,21 +568,21 @@
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
@@ -677,6 +590,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../bitcoin.qrc"/>
+ </resources>
  <connections/>
 </ui>
