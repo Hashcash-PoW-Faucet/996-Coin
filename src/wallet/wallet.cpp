@@ -2509,6 +2509,7 @@ void CWallet::AvailableCoinsForStaking(std::vector<COutput>& vCoins) const
         const uint256& wtxid = it->first;
         const CWalletTx* pcoin = &(*it).second;
         int nDepth = pcoin->GetDepthInMainChain();
+        int64_t nMaxStakeSatoshis = 128000 * COIN; // prevents "whales" from dominating the staking process
 
         if (nDepth < 1)
             continue;
@@ -2518,7 +2519,7 @@ void CWallet::AvailableCoinsForStaking(std::vector<COutput>& vCoins) const
 
         if (pcoin->GetBlocksToMaturity() > 0)
             continue;
-
+        uint64_t nValue = 0;
         for (unsigned int i = 0; i < pcoin->tx->vout.size(); i++)
         {
             if (!IsSpent(wtxid, i))
@@ -2538,7 +2539,12 @@ void CWallet::AvailableCoinsForStaking(std::vector<COutput>& vCoins) const
                         bool spendable = ((mine & ISMINE_SPENDABLE) != ISMINE_NO) ||
                             (((mine & ISMINE_WATCH_ONLY) != ISMINE_NO) && solvable) ||
                             ((mine & (includeColdStaking ? ISMINE_COLD : ISMINE_NO)) != ISMINE_NO);
-                        vCoins.push_back(COutput(pcoin, i, nDepth, spendable, solvable, pcoin->IsTrusted()));
+                        nValue += pcoin->tx->vout[i].nValue;
+                        if (nValue <= nMaxStakeSatoshis) {
+                            vCoins.push_back(COutput(pcoin, i, nDepth, spendable, solvable, pcoin->IsTrusted()));
+                        } else {
+                            return;
+                        }
                     }
                 }
             }
@@ -3454,6 +3460,8 @@ uint64_t CWallet::GetStakeWeight() const
         if (pcoin.first->GetDepthInMainChain() >= COINBASE_MATURITY)
             nWeight += pcoin.first->tx->vout[pcoin.second].nValue;
     }
+
+    nWeight = std::min(nWeight, (uint64_t)128000 * COIN);
 
     return nWeight;
 }
