@@ -1319,7 +1319,7 @@ bool ReadRawBlockFromDisk(std::vector<uint8_t>& block, const CBlockIndex* pindex
 
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
-    CAmount nSubsidy = 500 * COIN;
+    CAmount nSubsidy = 996 * COIN;
 
     int reductions = (nHeight - 1) / consensusParams.NNSRewardMatchStep;
 
