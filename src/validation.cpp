@@ -2131,7 +2131,7 @@ bool CheckReward(const CBlock& block, BlockValidationState& state, int nHeight, 
     if (block.IsProofOfWork())
     {
         // Check proof-of-work reward
-        CAmount blockReward = nFees + GetBlockSubsidy(nHeight, consensusParams);
+        CAmount blockReward = nFees + GetBlockSubsidy(nHeight, consensusParams) * 10;
         if (block.vtx[offset]->GetValueOut() > blockReward) {
             LogPrintf("CheckReward(): coinbase pays too much (actual=%d vs limit=%d)\n", block.vtx[offset]->GetValueOut(), blockReward);
             return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cb-amount");
