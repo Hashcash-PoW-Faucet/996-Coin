@@ -2145,6 +2145,7 @@ bool CheckReward(const CBlock& block, BlockValidationState& state, int nHeight, 
             LogPrintf("CheckReward(): coinstake pays too much (actual=%d vs limit=%d)\n", nActualStakeReward, blockReward);
             return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cs-amount");
         }
+        int64_t maxStakeSatoshis = 128000 * COIN; // prevents "whales" from dominating the staking process
 
         bool isColdStake = block.vtx[1]->HasP2CSOutputs();
         // The first proof-of-stake blocks get full reward, the rest of them are split between recipients
@@ -2538,7 +2539,13 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
         {
             if (tx.IsCoinStake())
                 nActualStakeReward = tx.GetValueOut()-view.GetValueIn(tx);
-            
+
+            int64_t maxStakeSatoshis = 128000 * COIN; // prevents "whales" from dominating the staking process
+
+            if (tx.IsCoinStake() && tx.GetValueOut() > maxStakeSatoshis) {
+                LogPrintf("ERROR: %s: coinstake transaction pays too much\n", __func__);
+                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cs-amount");
+            }
             std::vector<CScriptCheck> vChecks;
             bool fCacheResults = fJustCheck; /* Don't cache results if we're actually connecting blocks (still consult the cache, though) */
             TxValidationState tx_state;
