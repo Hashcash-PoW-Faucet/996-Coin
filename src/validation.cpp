@@ -1179,6 +1179,9 @@ bool CheckHeaderProof(const CBlockHeader& block, const Consensus::Params& consen
 
 bool CheckIndexProof(const CBlockIndex& block, const Consensus::Params& consensusParams)
 {
+    // Genesis block's proof is valid by definition
+    if (block.GetBlockHash() == consensusParams.hashGenesisBlock)
+        return true;
     // Get the hash of the proof
     // After validating the PoS block the computed hash proof is saved in the block index, which is used to check the index
     uint256 hashProof = block.IsProofOfWork() ? block.GetBlockHash() : block.hashProof;
