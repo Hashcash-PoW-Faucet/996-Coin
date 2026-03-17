@@ -2131,8 +2131,7 @@ bool CheckReward(const CBlock& block, BlockValidationState& state, int nHeight, 
             LogPrintf("CheckReward(): coinstake pays too much (actual=%d vs limit=%d)\n", nActualStakeReward, blockReward);
             return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cs-amount");
         }
-        int64_t maxStakeSatoshis = 128000 * COIN; // prevents "whales" from dominating the staking process
-
+        
         bool isColdStake = block.vtx[1]->HasP2CSOutputs();
         // The first proof-of-stake blocks get full reward, the rest of them are split between recipients
         int rewardRecipients = 1;
