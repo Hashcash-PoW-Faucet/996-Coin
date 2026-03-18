@@ -376,7 +376,7 @@ static RPCHelpMan getmininginfo()
     const Consensus::Params& consensusParams = Params().GetConsensus();
     obj.pushKV("blockvalue",    (uint64_t)GetBlockSubsidy(::ChainActive().Height(), consensusParams));
     obj.pushKV("netmhashps",       GetPoWMHashPS());
-    obj.pushKV("netstakeweight",   GetPoSKernelPS());
+    obj.pushKV("poskernelps", GetPoSKernelPS());
     obj.pushKV("errors",           GetWarnings("statusbar").original);
     obj.pushKV("networkhashps",    getnetworkhashps().HandleRequest(request));
     obj.pushKV("pooledtx",         (uint64_t)mempool.size());
@@ -406,7 +406,7 @@ static UniValue getstakinginfo(const JSONRPCRequest& request)
                         {RPCResult::Type::NUM,  "difficulty", "The current difficulty"},
                         {RPCResult::Type::NUM,  "search-interval", "The size of the mempool"},
                         {RPCResult::Type::NUM,  "weight", "The size of the mempool"},
-                        {RPCResult::Type::NUM,  "netstakeweight", "The size of the mempool"},
+                        {RPCResult::Type::NUM,  "poskernelps", "Estimated proof-of-stake kernels per second"},
                         {RPCResult::Type::NUM,  "expectedtime", "The size of the mempool"},
                     }
                 },
@@ -433,11 +433,8 @@ static UniValue getstakinginfo(const JSONRPCRequest& request)
     }
 #endif
 
-    uint64_t nNetworkWeight = GetPoSKernelPS();
-    bool staking = lastCoinStakeSearchInterval && nWeight;
-    const Consensus::Params& consensusParams = Params().GetConsensus();
-    int64_t nTargetSpacing = consensusParams.nPowTargetSpacing;
-    uint64_t nExpectedTime = staking ? (nTargetSpacing * nNetworkWeight / nWeight) : 0;
+    double nKernelPS = GetPoSKernelPS();
+	bool staking = lastCoinStakeSearchInterval && nWeight;
 
     UniValue obj(UniValue::VOBJ);
 
@@ -452,9 +449,8 @@ static UniValue getstakinginfo(const JSONRPCRequest& request)
     obj.pushKV("search-interval", (int)lastCoinStakeSearchInterval);
 
     obj.pushKV("weight", (uint64_t)nWeight);
-    obj.pushKV("netstakeweight", (uint64_t)nNetworkWeight);
-
-    obj.pushKV("expectedtime", nExpectedTime);
+	obj.pushKV("poskernelps", (uint64_t)nKernelPS);
+	obj.pushKV("expectedtime", 0);
 
     return obj;
 }
@@ -509,7 +505,7 @@ static UniValue getstakingstatus(const JSONRPCRequest& request)
 #endif
 
     bool staking = walletStakingEnabled && lastCoinStakeSearchInterval && nWeight;
-    bool hasConnections = node.connman->GetNodeCount(CConnman::CONNECTIONS_ALL) >= 4;
+    bool hasConnections = node.connman->GetNodeCount(CConnman::CONNECTIONS_ALL) >= MIN_STAKE_PEERS;
     bool isSynced = !::ChainstateActive().IsInitialBlockDownload();
     bool hasCoins = nWeight != 0;
 
