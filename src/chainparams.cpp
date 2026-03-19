@@ -70,7 +70,7 @@ public:
         consensus.NNSRewardMatchHeight = 0;
         consensus.NNSDiffAdjHeight = 130000;
         consensus.NNSColdStakeEnableHeight = 260000;
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimit = uint256S("0000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 10 * 3 * 60; // every 10 blocks
         consensus.nPowTargetSpacing = 3 * 60;
