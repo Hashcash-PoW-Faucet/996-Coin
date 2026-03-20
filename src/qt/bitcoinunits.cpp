@@ -64,9 +64,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case NNS: return QString("Bitcoins");
-    case mNNS: return QString("Milli-Bitcoins (1 / 1" THIN_SP_UTF8 "000)");
-    case uNNS: return QString("Micro-Bitcoins (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case NNS: return QString("996");
+    case mNNS: return QString("Milli-996 (1 / 1" THIN_SP_UTF8 "000)");
+    case uNNS: return QString("Micro-996 (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
