@@ -2537,12 +2537,11 @@ void CWallet::AvailableCoinsForStaking(std::vector<COutput>& vCoins) const
                     {
                         std::unique_ptr<SigningProvider> provider = GetSolvingProvider(pcoin->tx->vout[i].scriptPubKey);
 						bool solvable = provider ? IsSolvable(*provider, pcoin->tx->vout[i].scriptPubKey, mine == ISMINE_COLD) : false;
-                        bool solvable = IsSolvable(*provider, pcoin->tx->vout[i].scriptPubKey, mine == ISMINE_COLD);
-                        bool spendable = ((mine & ISMINE_SPENDABLE) != ISMINE_NO) ||
-                            (((mine & ISMINE_WATCH_ONLY) != ISMINE_NO) && solvable) ||
-                            ((mine & (includeColdStaking ? ISMINE_COLD : ISMINE_NO)) != ISMINE_NO);
+						bool spendable = ((mine & ISMINE_SPENDABLE) != ISMINE_NO) ||
+    						(((mine & ISMINE_WATCH_ONLY) != ISMINE_NO) && solvable) ||
+    						((mine & (includeColdStaking ? ISMINE_COLD : ISMINE_NO)) != ISMINE_NO);
 
-                        vCoins.push_back(COutput(pcoin, i, nDepth, spendable, solvable, pcoin->IsTrusted()));
+						vCoins.push_back(COutput(pcoin, i, nDepth, spendable, solvable, pcoin->IsTrusted()));
                     }
                 }
             }
