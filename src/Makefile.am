@@ -81,27 +81,23 @@ bin_PROGRAMS =
 noinst_PROGRAMS =
 TESTS =
 BENCHMARKS =
-996coind_SOURCES = bitcoind.cpp
-996coin_cli_SOURCES = bitcoin-cli.cpp
-996coin_tx_SOURCES = bitcoin-tx.cpp
-996coin_wallet_SOURCES = bitcoin-wallet.cpp
 if BUILD_BITCOIND
-  bin_PROGRAMS += bitcoin-posd
+  bin_PROGRAMS += coin996d
 endif
 
 if BUILD_BITCOIN_NODE
-  bin_PROGRAMS += bitcoin-pos-node
+  bin_PROGRAMS += coin996-node
 endif
 
 if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += bitcoin-pos-cli
+  bin_PROGRAMS += coin996-cli
 endif
 if BUILD_BITCOIN_TX
-  bin_PROGRAMS += bitcoin-pos-tx
+  bin_PROGRAMS += coin996-tx
 endif
 if ENABLE_WALLET
 if BUILD_BITCOIN_WALLET
-  bin_PROGRAMS += bitcoin-pos-wallet
+  bin_PROGRAMS += coin996-wallet
 endif
 endif
 
@@ -608,48 +604,48 @@ bitcoin_bin_ldadd = \
 
 bitcoin_bin_ldadd += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(SQLITE_LIBS)
 
-bitcoin_posd_SOURCES = $(bitcoin_daemon_sources)
-bitcoin_posd_CPPFLAGS = $(bitcoin_bin_cppflags)
-bitcoin_posd_CXXFLAGS = $(bitcoin_bin_cxxflags)
-bitcoin_posd_LDFLAGS = $(bitcoin_bin_ldflags)
-bitcoin_posd_LDADD = $(LIBBITCOIN_SERVER) $(bitcoin_bin_ldadd)
+coin996d_SOURCES = $(bitcoin_daemon_sources)
+coin996d_CPPFLAGS = $(bitcoin_bin_cppflags)
+coin996d_CXXFLAGS = $(bitcoin_bin_cxxflags)
+coin996d_LDFLAGS = $(bitcoin_bin_ldflags)
+coin996d_LDADD = $(LIBBITCOIN_SERVER) $(bitcoin_bin_ldadd)
 
-bitcoin_pos_node_SOURCES = $(bitcoin_daemon_sources)
-bitcoin_pos_node_CPPFLAGS = $(bitcoin_bin_cppflags)
-bitcoin_pos_node_CXXFLAGS = $(bitcoin_bin_cxxflags)
-bitcoin_pos_node_LDFLAGS = $(bitcoin_bin_ldflags)
-bitcoin_pos_node_LDADD = $(LIBBITCOIN_SERVER) $(bitcoin_bin_ldadd)
+coin996_node_SOURCES = $(bitcoin_daemon_sources)
+coin996_node_CPPFLAGS = $(bitcoin_bin_cppflags)
+coin996_node_CXXFLAGS = $(bitcoin_bin_cxxflags)
+coin996_node_LDFLAGS = $(bitcoin_bin_ldflags)
+coin996_node_LDADD = $(LIBBITCOIN_SERVER) $(bitcoin_bin_ldadd)
 
 # bitcoin-cli binary #
-bitcoin_pos_cli_SOURCES = bitcoin-cli.cpp
-bitcoin_pos_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-bitcoin_pos_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcoin_pos_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS)
+coin996_cli_SOURCES = bitcoin-cli.cpp
+coin996_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+coin996_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+coin996_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS)
 
 if TARGET_WINDOWS
-bitcoin_pos_cli_SOURCES += bitcoin-cli-res.rc
+coin996_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-bitcoin_pos_cli_LDADD = \
+coin996_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-bitcoin_pos_cli_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+coin996_cli_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
 # bitcoin-tx binary #
-bitcoin_pos_tx_SOURCES = bitcoin-tx.cpp
-bitcoin_pos_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-bitcoin_pos_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcoin_pos_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS)
+coin996_tx_SOURCES = bitcoin-tx.cpp
+coin996_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+coin996_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+coin996_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS)
 
 if TARGET_WINDOWS
-bitcoin_pos_tx_SOURCES += bitcoin-tx-res.rc
+coin996_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-bitcoin_pos_tx_LDADD = \
+coin996_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -657,18 +653,18 @@ bitcoin_pos_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-bitcoin_pos_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+coin996_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoin-wallet binary #
-bitcoin_pos_wallet_SOURCES = bitcoin-wallet.cpp
-bitcoin_pos_wallet_CPPFLAGS = $(bitcoin_bin_cppflags)
-bitcoin_pos_wallet_CXXFLAGS = $(bitcoin_bin_cxxflags)
-bitcoin_pos_wallet_LDFLAGS = $(bitcoin_bin_ldflags)
-bitcoin_pos_wallet_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_WALLET_TOOL) $(bitcoin_bin_ldadd)
+coin996_wallet_SOURCES = bitcoin-wallet.cpp
+coin996_wallet_CPPFLAGS = $(bitcoin_bin_cppflags)
+coin996_wallet_CXXFLAGS = $(bitcoin_bin_cxxflags)
+coin996_wallet_LDFLAGS = $(bitcoin_bin_ldflags)
+coin996_wallet_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_WALLET_TOOL) $(bitcoin_bin_ldadd)
 
 if TARGET_WINDOWS
-bitcoin_pos_wallet_SOURCES += bitcoin-wallet-res.rc
+coin996_wallet_SOURCES += bitcoin-wallet-res.rc
 endif
 #
 
