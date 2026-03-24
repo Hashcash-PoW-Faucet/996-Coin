@@ -3,12 +3,12 @@
 *.exe
 *.pdb
 src/bitcoin
-src/bitcoin-posd
-src/bitcoin-pos-cli
-src/bitcoin-pos-gui
-src/bitcoin-pos-node
-src/bitcoin-pos-tx
-src/bitcoin-pos-wallet
+src/996coind
+src/996coin-cli
+src/996coin-gui
+src/996coin-node
+src/996coin-tx
+src/996coin-wallet
 src/996coinsd
 src/996coin-cli
 src/996coin-gui
@@ -98,7 +98,7 @@ src/qt/bitcoin-qt.includes
 *.qm
 Makefile
 !depends/Makefile
-src/qt/bitcoin-pos-qt
+src/qt/996coin-qt
 Bitcoin-POS-Qt.app
 src/qt/996coin-qt
 996-Coin-Qt.app
@@ -156,7 +156,7 @@ db4/
 osx_volname
 dist/
 *.background.tiff
-contrib/bitcoin-pos-qt.pro.user
+contrib/996coin-qt.pro.user
 contrib/996coin-qt.pro.user
 src/univalue/configure~
 configure~

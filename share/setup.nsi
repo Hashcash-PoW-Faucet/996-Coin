@@ -14,11 +14,11 @@ SetDateSave off
 !define URL https://hashcashfaucet.com/
 
 # MUI Symbol Definitions
-!define MUI_ICON "/mnt/e/996-Coin/share/pixmaps/bitcoin.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "/mnt/e/996-Coin/share/pixmaps/nsis-wizard.bmp"
+!define MUI_ICON "/home/wallet/996-Coin/share/pixmaps/bitcoin.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "/home/wallet/996-Coin/share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "/mnt/e/996-Coin/share/pixmaps/nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "/home/wallet/996-Coin/share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
@@ -27,7 +27,7 @@ SetDateSave off
 !define MUI_FINISHPAGE_RUN "$WINDIR\explorer.exe"
 !define MUI_FINISHPAGE_RUN_PARAMETERS $INSTDIR\996coin-qt
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/mnt/e/996-Coin/share/pixmaps/nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/home/wallet/996-Coin/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -56,14 +56,14 @@ CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 0.20.99.0
+VIProductVersion 1.0.1.0
 VIAddVersionKey ProductName "996-Coin Core"
-VIAddVersionKey ProductVersion "0.20.99"
+VIAddVersionKey ProductVersion "1.0.1"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
-VIAddVersionKey FileVersion "0.20.99"
+VIAddVersionKey FileVersion "1.0.1"
 VIAddVersionKey FileDescription "Installer for 996-Coin Core"
-VIAddVersionKey LegalCopyright "Copyright (C) 2009-2020 The 996-Coin Core developers"
+VIAddVersionKey LegalCopyright "Copyright (C) 2009-2026 The 996-Coin Core developers"
 InstallDirRegKey HKCU "${REGKEY}" Path
 ShowUninstDetails show
 
@@ -71,16 +71,16 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /mnt/e/996-Coin/release/996coin-qt
-    File /oname=COPYING.txt /mnt/e/996-Coin/COPYING
-    File /oname=readme.txt /mnt/e/996-Coin/doc/README_windows.txt
+    File /home/wallet/996-Coin/release/996coin-qt
+    File /oname=COPYING.txt /home/wallet/996-Coin/COPYING
+    File /oname=readme.txt /home/wallet/996-Coin/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File /mnt/e/996-Coin/release/996coind
-    File /mnt/e/996-Coin/release/996coin-cli
-    File /mnt/e/996-Coin/release/996coin-tx
-    File /mnt/e/996-Coin/release/996coin-wallet
+    File /home/wallet/996-Coin/release/996coind
+    File /home/wallet/996-Coin/release/996coin-cli
+    File /home/wallet/996-Coin/release/996coin-tx
+    File /home/wallet/996-Coin/release/996coin-wallet
     SetOutPath $INSTDIR\doc
-    File /r /x Makefile* /mnt/e/996-Coin/doc\*.*
+    File /r /x Makefile* /home/wallet/996-Coin/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 SectionEnd
@@ -96,7 +96,7 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
-    WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "0.20.99"
+    WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "1.0.1"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" Publisher "${COMPANY}"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" URLInfoAbout "${URL}"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayIcon $INSTDIR\bitcoin-qt.exe
