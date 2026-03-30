@@ -1750,24 +1750,30 @@ void CWalletTx::GetAmounts(std::list<COutputEntry>& listReceived,
 
         if (!ExtractDestination(txout.scriptPubKey, address, NULL, fColdStake) && !txout.scriptPubKey.IsUnspendable())
         {
-            std::vector<valtype> solutions;
-            const TxoutType whichType = Solver(txout.scriptPubKey, solutions);
-
-            // Some valid wallet-relevant script types such as P2PK do not map
-            // cleanly to a standard destination string. Do not treat them as
-            // unknown transaction types; keep a CNoDestination placeholder and
-            // continue classifying the amount as sent/received via IsMine.
-            if (whichType != TxoutType::PUBKEY &&
-                whichType != TxoutType::PUBKEYHASH &&
-                whichType != TxoutType::SCRIPTHASH &&
-                whichType != TxoutType::WITNESS_V0_KEYHASH &&
-                whichType != TxoutType::WITNESS_V0_SCRIPTHASH &&
-                whichType != TxoutType::WITNESS_V1_TAPROOT &&
-                whichType != TxoutType::COLDSTAKE &&
-                whichType != TxoutType::NULL_DATA)
+            // Ignore the empty coinstake marker / empty script outputs. These
+            // are valid for wallet accounting purposes but do not correspond to
+            // a standard destination string.
+            if (!txout.scriptPubKey.empty())
             {
-                pwallet->WalletLogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n",
-                                        this->GetHash().ToString());
+                std::vector<valtype> solutions;
+                const TxoutType whichType = Solver(txout.scriptPubKey, solutions);
+
+                // Some valid wallet-relevant script types such as P2PK do not map
+                // cleanly to a standard destination string. Do not treat them as
+                // unknown transaction types; keep a CNoDestination placeholder and
+                // continue classifying the amount as sent/received via IsMine.
+                if (whichType != TxoutType::PUBKEY &&
+                    whichType != TxoutType::PUBKEYHASH &&
+                    whichType != TxoutType::SCRIPTHASH &&
+                    whichType != TxoutType::WITNESS_V0_KEYHASH &&
+                    whichType != TxoutType::WITNESS_V0_SCRIPTHASH &&
+                    whichType != TxoutType::WITNESS_V1_TAPROOT &&
+                    whichType != TxoutType::COLDSTAKE &&
+                    whichType != TxoutType::NULL_DATA)
+                {
+                    pwallet->WalletLogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n",
+                                            this->GetHash().ToString());
+                }
             }
         }
 
