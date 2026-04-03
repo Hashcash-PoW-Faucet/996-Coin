@@ -123,8 +123,6 @@ When cold staking is active:
 - `COLDSTAKE` outputs can be recognized by wallet and consensus code,
 - wallet inclusion depends on the `-coldstaking` setting.
 
-
-
 ## Wallet staking behavior
 
 ### Wallet stake selection
@@ -166,31 +164,145 @@ The repository currently contains source/build logic for:
 
 Depending on platform and build method, output binaries may still use inherited upstream naming until renamed in code and packaging.
 
-## Building
+## Build Instructions
 
-Build instructions are not yet fully refreshed for 996-Coin.
+### Clone the repository
 
-Until project-specific instructions are finalized, review the existing platform build files and upstream-style documentation in:
+```bash
+git clone https://github.com/Imusing/996-Coin
+cd 996-Coin
+```
 
-- `doc/`
-- `depends/`
-- `build_msvc/`
-- `contrib/`
+### Linux build
 
-If you are contributing build instructions, prefer documenting:
+#### Install build dependencies on Ubuntu
 
-- tested OS version
-- compiler/toolchain version
-- dependency installation steps
-- exact build commands
-- resulting binary names
-- known warnings or failures
+For a normal Linux build, install the required base packages first:
 
-## Configuration
+```bash
+sudo apt update
+sudo apt install -y \
+  git build-essential cmake pkgconf python3 \
+  autoconf automake libtool \
+  bsdmainutils curl ca-certificates
+```
 
-Default configuration naming and datadir conventions may still reflect upstream ancestry in parts of the codebase. These should be verified before release packaging or public distribution.
+These packages cover:
 
-## Contributing
+- the general Unix build toolchain
+- the autotools bootstrap step (`./autogen.sh`)
+- the `depends` system
+
+#### Build the Linux `depends` tree
+
+```bash
+cd ~/996-Coin/depends
+make -j$(nproc)
+```
+
+#### Build the project
+
+```bash
+cd ~/996-Coin
+make distclean || true
+./autogen.sh
+CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site \
+./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu
+make -j$(nproc)
+```
+
+You will get the following Linux binaries:
+
+- `src/coin996d`
+- `src/coin996-cli`
+- `src/coin996-tx`
+- `src/coin996-wallet`
+- `src/qt/coin996-qt`
+
+If you want a headless build only, you can use:
+
+```bash
+CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site \
+./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu --without-gui
+```
+
+### Windows cross-build from Ubuntu / WSL
+
+#### Install additional cross-compilation packages
+
+These packages are only needed if you want to cross-compile Windows binaries from Linux or WSL:
+
+```bash
+sudo apt update
+sudo apt install -y \
+  g++-mingw-w64-x86-64 \
+  binutils-mingw-w64-x86-64
+```
+
+#### Build the Windows `depends` tree
+
+```bash
+cd ~/996-Coin/depends
+make HOST=x86_64-w64-mingw32 -j$(nproc)
+```
+
+#### Build the Windows binaries
+
+```bash
+cd ~/996-Coin
+make distclean || true
+./autogen.sh
+CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site \
+./configure --prefix=$PWD/depends/x86_64-w64-mingw32
+make -j$(nproc)
+```
+
+You will get the following Windows binaries:
+
+- `src/coin996d.exe`
+- `src/coin996-cli.exe`
+- `src/coin996-tx.exe`
+- `src/coin996-wallet.exe`
+- `src/qt/coin996-qt.exe`
+
+If you only want headless Windows binaries, you can also add `--without-gui` to the `./configure` step.
+
+### Notes
+
+- The default configuration file is named:
+
+```text
+996coin.conf
+```
+
+- The executable names currently start with `coin996`, while the configuration file name uses `996coin`.
+- Some inherited upstream names may still remain in parts of the source tree, build system, or generated artifacts.
+- If you switch between different targets or old build attempts left stale files behind, run:
+
+```bash
+make distclean || true
+```
+
+before configuring again.
+
+### Troubleshooting
+
+If `./autogen.sh` fails, make sure these tools are installed:
+
+```bash
+autoconf
+automake
+libtool
+```
+
+If the Windows `depends` build fails, make sure the MinGW packages are installed:
+
+```bash
+g++-mingw-w64-x86-64
+binutils-mingw-w64-x86-64
+```
+
+### Contributing
 
 Contributions should be made through branches and pull requests unless direct branch coordination has been explicitly agreed by the project maintainers.
 
@@ -202,22 +314,6 @@ Recommended contribution flow:
 4. open a pull request with a clear summary
 5. include notes on build/test status
 
-## Project Status
-
-This project is in active fork/customization state. Some codebase and build-system elements still reflect upstream Bitcoin PoS ancestry while chain parameters and network identity have been customized for 996-Coin.
-
-That means this repository should currently be treated as a development fork, not as a polished end-user release.
-
-## Important Note
-
-This project is derived from upstream Bitcoin Core / Bitcoin PoS lineage. As with many cryptocurrency forks, inherited naming, comments, scripts, and documentation may still exist in parts of the codebase. Ongoing cleanup and verification are expected parts of development.
-
-Do not assume all documentation, filenames, or build artifacts are fully rebranded until they have been reviewed.
-
-
-## Security
-
-This repository may contain inherited security contact or upstream project references that are no longer valid for 996-Coin. Verify all security/reporting contact paths before publishing releases.
 
 ## License
 
