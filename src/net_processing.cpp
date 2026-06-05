@@ -2498,7 +2498,13 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
             pfrom.fDisconnect = true;
             return;
         }
-
+        if (cleanSubVer.find(":1.0.0") != std::string::npos ||
+            cleanSubVer.find("/1.0.0") != std::string::npos) {
+            LogPrintf("Disconnecting old 996-Coin peer: %s peer=%d\n",
+                    cleanSubVer, pfrom.GetId());
+            pfrom.fDisconnect = true;
+            return;
+        }
         if (pfrom.IsInboundConn() && addrMe.IsRoutable())
         {
             SeenLocal(addrMe);
